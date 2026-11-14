@@ -3,7 +3,7 @@
 **Aluno:** Victor Alves Freire De Queiroz
 **Matrícula:** 202307122
 
-Projeto de um compensador do tipo avanço para o Exemplo 4 do material *SC_Cap4_05a_avanco.pdf*, fazendo o tempo de acomodação ficar 2 vezes menor que o do sistema sem compensação (C = 1) e o máximo sobressinal ficar em 25%.
+Projeto de um compensador do tipo Avanço, fazendo o tempo de acomodação ficar 2 vezes menor que o do sistema sem compensação (C = 1) e o máximo sobressinal ficar em 25%.
 
 ## Arquivos
 
@@ -32,10 +32,6 @@ pip install -r requirements.txt
 python compensador_avanco.py
 ```
 
-**Google Colab / Jupyter**
-
-Em uma célula, rode `!pip install control`. Depois cole o código do `compensador_avanco.py` na célula seguinte e execute.
-
 ## O que aparece
 
 No terminal são mostrados os parâmetros do compensador e os dados da resposta ao degrau, com e sem compensação. Em seguida abre o gráfico comparando as duas respostas, que também é salvo como `resposta_degrau_avanco.png`.
@@ -48,15 +44,23 @@ No terminal são mostrados os parâmetros do compensador e os dados da resposta 
 4. Pela condição de ângulo, o polo do compensador precisa contribuir com 36,70°, o que o coloca em s = −3,2272 e dá α = 0,6197.
 5. Pela condição de módulo, sai o ganho K.
 
-## Resultados
+## Resultados alcançados
 
-Parâmetros obtidos:
+### Parâmetros do compensador de avanço
 
-- K = 0,6829
-- α = 0,6197
-- T = 0,5
+- **K = 0,6829**
+- **α = 0,6197**
+- **T = 0,5**
 
 C(s) = 0,6829 · (1 + 0,5s) / (1 + 0,3099s) = 1,1020 · (s + 2) / (s + 3,2272)
+
+### Resposta ao degrau unitário após a compensação
+
+- **Máximo sobressinal:** 23,29 %
+- **Tempo de acomodação (critério de 2%):** 4,428 s
+- **Tempo de pico:** 1,933 s
+
+### Comparação com o sistema sem compensação
 
 | | Sem compensação | Com avanço |
 |---|---|---|
@@ -64,10 +68,11 @@ C(s) = 0,6829 · (1 + 0,5s) / (1 + 0,3099s) = 1,1020 · (s + 2) / (s + 3,2272)
 | Tempo de acomodação | 8,913 s | 4,428 s |
 | Tempo de pico | 1,834 s | 1,933 s |
 
-O tempo de acomodação ficou 2,01 vezes menor. O sobressinal ficou em 23,3%, perto dos 25% pedidos. A pequena diferença vem do terceiro polo em malha fechada (em s ≈ −5,63), que não entra na aproximação de segunda ordem usada no projeto.
+### Especificações atendidas
 
-## Problemas comuns
+| Especificação | Pedido | Obtido |
+|---|---|---|
+| Redução do tempo de acomodação | 2x menor | 2,01x menor |
+| Máximo sobressinal | 25 % | 23,29 % |
 
-- **`No module named 'control'`**: o ambiente virtual não está ativado. Rode o comando `activate` de novo.
-- **`Permissão negada` ao ativar no Linux**: falta o `source` na frente do comando.
-- **Erro envolvendo NumPy e SciPy**: acontece quando os pacotes são misturados com os do sistema. Usando o ambiente virtual como descrito acima, isso não ocorre.
+O tempo de acomodação caiu pela metade, como pedido. O sobressinal ficou em 23,3%, próximo dos 25%. A pequena diferença vem do terceiro polo em malha fechada (em s ≈ −5,63), que não entra na aproximação de segunda ordem usada no projeto. É o mesmo tipo de diferença aceita no exemplo do material.
