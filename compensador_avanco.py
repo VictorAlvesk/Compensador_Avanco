@@ -18,7 +18,6 @@ wd = abs(pc.imag)
 print("Polos sem compensação:", np.round(polos0, 4))
 print(f"sigma = {sigma:.4f}  Ts teórico = {4/sigma:.4f} s")
 
-# especificações: Ts 2x menor e MSS = 25%
 mss = 0.25
 zeta = -np.log(mss) / np.sqrt(np.pi**2 + np.log(mss)**2)
 sigma_novo = 2 * sigma
@@ -28,10 +27,8 @@ s1 = complex(-sigma_novo, wd_novo)
 print(f"\nzeta = {zeta:.4f}  wn = {wn:.4f} rad/s")
 print(f"Polo desejado: s1 = {s1.real:.4f} ± j{s1.imag:.4f}")
 
-# zero do compensador cancela o polo em -2
 T = 1 / 2
 
-# condição de ângulo
 ang = np.degrees(np.angle(s1) + np.angle(s1 + 4))
 ang_polo = 180 - ang
 p = -s1.real + s1.imag / np.tan(np.radians(ang_polo))
